@@ -74,10 +74,10 @@ export default function LoginModal({
         {/* Contenido */}
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">
-            {t("acceso_requerido") || "Acceso Requerido"}
+            {title || t("Acceso Requerido")}
           </h2>
           <p className="text-gray-600 mb-8 leading-relaxed">
-            {t("login_to_view_plan") || "Inicia sesión para acceder a todos los detalles y opciones de este plano arquitectónico"}
+            {message || t("Inicia sesión para acceder a todos los detalles y opciones")}
           </p>
           
           <div className="space-y-3">
@@ -87,7 +87,7 @@ export default function LoginModal({
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 rounded-xl shadow-lg transform transition-all hover:scale-[1.02] hover:shadow-xl"
             >
               <User className="w-5 h-5 mr-2" />
-              {t("iniciar_sesion") || "Iniciar Sesión"}
+              Iniciar Sesión
             </Button>
             
             {/* Botón de Registro secundario */}
@@ -97,7 +97,7 @@ export default function LoginModal({
               className="w-full border-2 border-gray-200 hover:border-blue-300 hover:bg-blue-50 text-gray-700 font-semibold py-3 rounded-xl transition-all"
             >
               <UserPlus className="w-5 h-5 mr-2" />
-              {t("crear_cuenta") || "Crear Cuenta Nueva"}
+              Crear Cuenta
             </Button>
           </div>
 

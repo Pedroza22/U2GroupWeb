@@ -4,10 +4,11 @@ import MarketplaceNav from '@/components/layout/marketplace-nav';
 import Footer from '@/components/layout/footer';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SettingsPage() {
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,4 +38,4 @@ export default function SettingsPage() {
       <Footer />
     </div>
   );
-} 
+}

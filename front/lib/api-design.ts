@@ -2,6 +2,40 @@ import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://u2-group-backend.onrender.com/api";
 
+// Interfaces para tipado
+export interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  error?: string;
+}
+
+export interface DesignService {
+  id: number;
+  name_en: string;
+  name_es: string;
+  price_min_usd?: number;
+  area_max_m2?: number;
+  max_units?: number;
+  notes?: string;
+  category_id: number;
+  category_name?: string;
+}
+
+export interface DesignCategory {
+  id: number;
+  name: string;
+  emoji: string;
+  services: DesignService[];
+}
+
+export interface DesignEntry {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  created_at: string;
+}
+
 // Headers de autenticación para admin
 const getAuthHeaders = () => {
   const adminToken = localStorage.getItem('u2-admin-token');
@@ -12,11 +46,11 @@ const getAuthHeaders = () => {
 };
 
 // Obtener todos los servicios de diseño
-export async function getDesignServices() {
+export async function getDesignServices(): Promise<ApiResponse<DesignCategory[]>> {
   try {
     console.log('🔧 Cargando servicios de diseño...');
     
-    const response = await axios.get(`${API_URL}/admin/design/services/`, {
+    const response = await axios.get<ApiResponse<DesignCategory[]>>(`${API_URL}/admin/design/services/`, {
       headers: getAuthHeaders()
     });
     

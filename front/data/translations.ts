@@ -639,24 +639,26 @@ export const translations = {
     login_benefits: "By creating an account you can save favorites, access complete plans and make purchases.",
 
     // MARKETPLACE
-    productos: "Productos",
-    carrito: "Carrito",
-    ordenes: "Órdenes",
-    favoritos: "Favoritos",
-    ajustes: "Ajustes",
-    conectado_como: "Conectado como",
-    salir: "Salir",
-    iniciar_sesion: "Iniciar sesión",
-    cerrar_sesion: "Cerrar sesión",
-    mi_cuenta: "Mi cuenta",
-    mis_pedidos: "Mis pedidos",
-    mis_favoritos: "Mis favoritos",
-    agregar_al_carrito: "Agregar al carrito",
-    quitar_del_carrito: "Quitar del carrito",
-    ver_producto: "Ver producto",
-    precio: "Precio",
-    cantidad: "Cantidad",
-    total: "Total",
+    /* Sección comentada para evitar duplicación con las traducciones en español más abajo
+    // productos: "Productos",
+    // carrito: "Carrito",
+    // ordenes: "Órdenes",
+    // favoritos: "Favoritos",
+    // ajustes: "Ajustes",
+    // conectado_como: "Conectado como",
+    // salir: "Salir",
+    // iniciar_sesion: "Iniciar sesión",
+    // cerrar_sesion: "Cerrar sesión",
+    // mi_cuenta: "Mi cuenta",
+    // mis_pedidos: "Mis pedidos",
+    // mis_favoritos: "Mis favoritos",
+    // agregar_al_carrito: "Agregar al carrito",
+    // quitar_del_carrito: "Quitar del carrito",
+    // ver_producto: "Ver producto",
+    // precio: "Precio",
+    // cantidad: "Cantidad",
+    // total: "Total",
+    */
     confirmar_compra: "Confirmar compra",
     procesar_pago: "Procesar pago",
     carrito_vacio: "Tu carrito está vacío",
@@ -672,13 +674,15 @@ export const translations = {
     nombre_z_a: "Nombre Z-A",
     
     // AUTENTICACIÓN MARKETPLACE
+    /* Sección comentada para evitar duplicación
     login_required: "Iniciar sesión requerido",
     acceso_requerido: "Acceso Requerido",
     login_to_view_plan: "Inicia sesión para acceder a todos los detalles y opciones de este plano arquitectónico",
     login_to_add_cart: "Inicia sesión para agregar productos a tu carrito de compras",
     login_to_add_favorites: "Inicia sesión para guardar productos en tus favoritos",
-    crear_cuenta: "Crear Cuenta Nueva",
+    crear_cuenta: "Crear Nueva Cuenta",
     login_benefits: "Al crear una cuenta podrás guardar favoritos, acceder a planos completos y realizar compras.",
+    */
     login_success: "¡Sesión iniciada correctamente!",
     login_error: "Credenciales inválidas. Por favor, intenta de nuevo.",
     register_here: "Crear cuenta",
@@ -698,13 +702,12 @@ export const translations = {
     allRightsReserved: "All rights reserved",
     followUs: "Follow us",
     developedBy: "Developed by Pedroza, Zare and Jara",
-  },
+  }
 
-  en: {
-    // NAVEGACIÓN Y ACCIONES COMUNES
-    inicio: "Home",
-    proyectos: "Projects",
-    nosotros: "About Us",
+  /* Segunda sección "en" eliminada para evitar duplicación
+  inicio: "Home",
+  proyectos: "Projects",
+  nosotros: "About Us",
     disena: "Design",
     blog: "Blog",
     contacto: "Contact",
@@ -1388,6 +1391,6 @@ export const translations = {
 
     developedBy: "Developed by Pedroza, Zare and Jara",
 
-  }
+  */
 
-} as const; 
+} as const;

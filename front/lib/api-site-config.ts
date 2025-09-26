@@ -23,12 +23,13 @@ export const getSiteConfig = async (): Promise<SiteConfig> => {
     const response = await axios.get(`${API_URL}/admin/site-config/`);
     console.log('🌐 getSiteConfig - Respuesta recibida:', response.data);
     
-    if (response.data.success) {
-      console.log('✅ getSiteConfig - Configuración obtenida exitosamente:', response.data.data);
-      return response.data.data;
+    const data = response.data as any;
+    if (data.success) {
+      console.log('✅ getSiteConfig - Configuración obtenida exitosamente:', data.data);
+      return data.data;
     } else {
-      console.error('❌ getSiteConfig - Error en respuesta:', response.data.message);
-      throw new Error(response.data.message || 'Error obteniendo configuración');
+      console.error('❌ getSiteConfig - Error en respuesta:', data.message);
+      throw new Error(data.message || 'Error obteniendo configuración');
     }
   } catch (error) {
     console.error('❌ getSiteConfig - Error obteniendo configuración del sitio:', error);
@@ -56,13 +57,14 @@ export const updateSiteConfig = async (config: Partial<SiteConfig>): Promise<{ s
   try {
     const response = await axios.post(`${API_URL}/admin/site-config/bulk-update/`, config);
     
-    if (response.data.success) {
+    const data = response.data as any;
+    if (data.success) {
       return {
         success: true,
-        message: response.data.message || 'Configuración actualizada exitosamente'
+        message: data.message || 'Configuración actualizada exitosamente'
       };
     } else {
-      throw new Error(response.data.message || 'Error actualizando configuración');
+      throw new Error(data.message || 'Error actualizando configuración');
     }
   } catch (error) {
     console.error('Error actualizando configuración del sitio:', error);

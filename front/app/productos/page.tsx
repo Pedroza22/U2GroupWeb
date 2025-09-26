@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+
+export const dynamic = 'force-dynamic';
 import { Product, getProducts } from '@/lib/api-products';
 import { FilterConfig, getFilterConfigs } from '@/lib/api-filters';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -174,4 +176,4 @@ const MarketplacePage = () => {
   );
 };
 
-export default MarketplacePage; 
+export default MarketplacePage;

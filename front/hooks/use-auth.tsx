@@ -9,6 +9,8 @@ interface AuthContextType {
   login: (token: string) => void
   logout: () => void
   checkAuth: () => boolean
+  token?: string | null
+  isLoading?: boolean
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -17,11 +19,15 @@ const AuthContext = createContext<AuthContextType>({
   login: () => {},
   logout: () => {},
   checkAuth: () => false,
+  token: null,
+  isLoading: false,
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState<any | null>(null)
+  const [token, setToken] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -58,16 +64,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const checkAuth = () => {
-    const token = localStorage.getItem('token')
-    if (!token) {
+    const storedToken = localStorage.getItem('token')
+    setToken(storedToken)
+    
+    if (!storedToken) {
       setIsAuthenticated(false)
       setUser(null)
+      setIsLoading(false)
       return false
     }
 
     // Verificar si el token ha expirado
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]))
+      const payload = JSON.parse(atob(storedToken.split('.')[1]))
       const expiry = new Date(payload.exp * 1000)
       const now = new Date()
 
@@ -79,25 +88,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setIsAuthenticated(true)
       setUser(payload)
+      setIsLoading(false)
       return true
     } catch (error) {
       console.error('Error al verificar token:', error)
       logout()
+      setIsLoading(false)
       return false
     }
   }
 
-  const login = async (token: string) => {
-    localStorage.setItem('token', token)
-    setIsAuthenticated(true)
+  const login = (newToken: string) => {
+    localStorage.setItem('token', newToken)
+    setToken(newToken)
+    setIsLoading(false)
+    checkAuth()
     
-    // Decodificar el token para obtener la información del usuario
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]))
-      setUser(payload)
-    } catch (error) {
-      console.error('Error al decodificar token:', error)
-    }
+    // Disparar evento personalizado para notificar cambios en el mismo tab
+    window.dispatchEvent(new Event('local-storage-change'))
   }
 
   const logout = () => {
@@ -108,10 +116,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, checkAuth }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        user,
+        login,
+        logout,
+        checkAuth,
+        token,
+        isLoading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )
 }
 
-export const useAuth = () => useContext(AuthContext) 
+export const useAuth = () => useContext(AuthContext)

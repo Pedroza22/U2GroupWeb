@@ -1,5 +1,13 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// ESM: definir __filename y __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracingRoot: path.join(__dirname, '../'),
   images: {
     unoptimized: true,
     domains: [
@@ -21,7 +29,21 @@ const nextConfig = {
       }
     ],
   },
+  // Disable static optimization globally
+  output: 'standalone',
+  experimental: {
+    forceSwcTransforms: true,
+  },
   reactStrictMode: true,
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, '.'),
+      '@components': path.resolve(__dirname, 'components'),
+      '@ui': path.resolve(__dirname, 'components/ui'),
+    };
+    return config;
+  },
   async rewrites() {
     // En desarrollo: apunta a localhost
     // En producción: apunta a Render

@@ -11,7 +11,7 @@ import { useLanguage } from "@/hooks/use-language"
 import { useParams } from "next/navigation"
 import { AdminDataManager } from "@/data/admin-data"
 import { useState, useEffect } from "react"
-import type { AdminBlog } from "@/data/admin-data"
+import type { AdminBlog } from "@/types"
 import axios from "axios";
 import { getBlogLikeFavorite, toggleBlogLike, toggleBlogFavorite, getBlogLikeFavoriteCount } from "@/lib/api-blogs";
 import { getBlogImageUrl, getImageUrl } from "@/lib/image-utils";
@@ -42,14 +42,15 @@ export default function BlogPostPage() {
       setLoading(true);
       try {
         const res = await axios.get(`${API_URL}/admin/blogs/${blogId}/`);
-        console.log('📋 Blog cargado:', res.data);
-        console.log('📋 Imagen del blog:', res.data.image);
-        console.log('📋 Imágenes adicionales:', res.data.images);
-        console.log('📋 Extra imágenes:', res.data.extra_images);
-        console.log('📋 URL de imagen generada:', getBlogImageUrl(res.data));
-        console.log('📋 Tipo de extra imágenes:', typeof res.data.extra_images);
-        console.log('📋 Longitud de extra imágenes:', res.data.extra_images ? res.data.extra_images.length : 0);
-        setBlogPost(res.data as AdminBlog);
+        const blogData = res.data as any;
+        console.log('📋 Blog cargado:', blogData);
+        console.log('📋 Imagen del blog:', blogData.image);
+        console.log('📋 Imágenes adicionales:', blogData.images);
+        console.log('📋 Extra imágenes:', blogData.extra_images);
+        console.log('📋 URL de imagen generada:', getBlogImageUrl(blogData));
+        console.log('📋 Tipo de extra imágenes:', typeof blogData.extra_images);
+        console.log('📋 Longitud de extra imágenes:', blogData.extra_images ? blogData.extra_images.length : 0);
+        setBlogPost(blogData);
         setError("");
       } catch (err: any) {
         console.error('❌ Error cargando blog:', err);
@@ -78,13 +79,13 @@ export default function BlogPostPage() {
   // Cargar estado de like/favorito y conteo
   useEffect(() => {
     if (blogPost) {
-      getBlogLikeFavorite(blogPost.id).then((data) => {
+      getBlogLikeFavorite(Number(blogPost.id)).then((data) => {
         setLikeState(data ? { liked: data.liked, favorited: data.favorited } : { liked: false, favorited: false });
       }).catch(error => {
         console.error('Error al cargar estado de like/favorito:', error);
         setLikeState({ liked: false, favorited: false });
       });
-      getBlogLikeFavoriteCount(blogPost.id).then(setLikeCount).catch(error => {
+      getBlogLikeFavoriteCount(Number(blogPost.id)).then(setLikeCount).catch(error => {
         console.error('Error al cargar conteo de likes/favoritos:', error);
         setLikeCount({ likes: 0, favorites: 0 });
       });
@@ -96,7 +97,7 @@ export default function BlogPostPage() {
     console.log('Intentando dar like al blog:', blogPost.id);
     setLikeLoading(true);
     try {
-      const result = await toggleBlogLike(blogPost.id);
+      const result = await toggleBlogLike(Number(blogPost.id));
       console.log('Resultado del like:', result);
       setLikeState(prev => prev ? { 
         ...prev, 
@@ -120,7 +121,7 @@ export default function BlogPostPage() {
     console.log('Intentando marcar como favorito el blog:', blogPost.id);
     setLikeLoading(true);
     try {
-      const result = await toggleBlogFavorite(blogPost.id);
+      const result = await toggleBlogFavorite(Number(blogPost.id));
       console.log('Resultado del favorito:', result);
       setLikeState(prev => prev ? { 
         ...prev, 
@@ -253,8 +254,8 @@ export default function BlogPostPage() {
                 <div className="my-12">
                   <h3 className="text-2xl neutra-font-bold text-blue-600 mb-6">Galería de Imágenes</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {blogPost.extra_images.map((img, idx) => {
-                      const imageUrl = typeof img === 'string' ? img : img.image;
+                    {blogPost.extra_images.map((img: string, idx: number) => {
+                      const imageUrl = img;
                       return (
                         <div 
                           key={`img-${idx}`} 

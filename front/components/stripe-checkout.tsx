@@ -160,7 +160,7 @@ export default function StripeCheckout({
         toast({
           title: "Error en el Pago",
           description: error.message,
-          variant: "destructive",
+          open: true,
         });
         onError?.(error.message);
       } else {
@@ -177,7 +177,7 @@ export default function StripeCheckout({
       toast({
         title: "Error en el Pago",
         description: errorMsg,
-        variant: "destructive",
+        open: true,
       });
       onError?.(errorMsg);
     } finally {
@@ -320,4 +320,4 @@ export default function StripeCheckout({
       </CardContent>
     </Card>
   );
-} 
+}

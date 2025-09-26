@@ -191,7 +191,7 @@ export default function ProductPlansPage() {
       
       // 1. Agregar al CartSessionManager (Singleton)
       const selectedPrice = getPlanSetPrice();
-      const planType = selectedPlanSet as 'pdf' | 'editable';
+      const planType = selectedPlanSet === 'editable' ? 'pdf-editable' : selectedPlanSet as 'pdf' | 'pdf-editable';
       
       cartSessionManager.addToCart(product, selectedPrice, planType, 1);
       console.log('🛒 Successfully added to cart session with price:', selectedPrice);
@@ -381,6 +381,8 @@ Mensaje: Cuéntanos qué cambios necesitas y en máximo 3 días hábiles te envi
   }
 
   const getPlanSetPrice = () => {
+    if (!product) return 0; // Verificar si product es null o undefined y retornar un valor por defecto
+    
     if (selectedPlanSet === "pdf") {
       return product.price;
     } else if (selectedPlanSet === "editable") {
@@ -1144,4 +1146,4 @@ Mensaje: Cuéntanos qué cambios necesitas y en máximo 3 días hábiles te envi
       )}
     </div>
   )
-} 
+}

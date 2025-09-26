@@ -1,5 +1,9 @@
+'use client';
+
 import StripeTest from '@/components/stripe-test';
 import StripeCheckout from '@/components/stripe-checkout';
+
+export const dynamic = 'force-dynamic';
 
 export default function StripeTestPage() {
   return (
@@ -37,4 +41,4 @@ export default function StripeTestPage() {
       </div>
     </div>
   );
-} 
+}

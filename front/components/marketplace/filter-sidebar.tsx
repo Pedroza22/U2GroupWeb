@@ -29,7 +29,7 @@ export default function FilterSidebar({ unit, setUnit, filters, setFilters }: Fi
   }
 
   const toggleFilter = (category: string, value: string) => {
-    setFilters((prev) => ({
+    setFilters((prev: any) => ({
       ...prev,
       [category]: prev[category]?.includes(value)
         ? prev[category].filter((item: string) => item !== value)

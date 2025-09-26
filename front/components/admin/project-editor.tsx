@@ -61,20 +61,20 @@ export default function ProjectEditor({ projectId, onSave, onCancel }: ProjectEd
       setLoading(true);
       const project = await getProject(projectId!);
       setFormData({
-        title: project.title || '',
-        description: project.description || '',
-        category: project.category || '',
-        type: project.type || '',
-        year: project.year || '',
-        location: project.location || '',
-        latitude: project.latitude?.toString() || '',
-        longitude: project.longitude?.toString() || '',
-        show_on_map: project.show_on_map || false,
-        status: project.status || 'Planning',
-        featured: project.featured || false,
-        page_title: project.title || '',
+        title: (project as any).title || '',
+        description: (project as any).description || '',
+        category: (project as any).category || '',
+        type: (project as any).type || '',
+        year: (project as any).year || '',
+        location: (project as any).location || '',
+        latitude: (project as any).latitude?.toString() || '',
+        longitude: (project as any).longitude?.toString() || '',
+        show_on_map: (project as any).show_on_map || false,
+        status: (project as any).status || 'Planning',
+        featured: (project as any).featured || false,
+        page_title: (project as any).title || '',
         color: 'AZUL PRIMARIO',
-        services: project.description || '',
+        services: (project as any).description || '',
         size: '145',
       });
     } catch (err) {

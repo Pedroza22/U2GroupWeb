@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic';
+
 export default function RegisterPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
@@ -15,4 +17,4 @@ export default function RegisterPage() {
       <p className="mt-4 text-gray-600">¿Ya tienes cuenta? <Link href="/login" className="text-blue-600 hover:underline">Inicia sesión</Link></p>
     </div>
   );
-} 
+}

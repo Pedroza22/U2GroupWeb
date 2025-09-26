@@ -16,10 +16,10 @@ export interface FilterConfig {
 export const getFilterConfigs = async (): Promise<FilterConfig[]> => {
   try {
     const response = await axios.get(`${API_URL}/admin/marketplace/filters/`);
-    return response.data;
+    return response.data as FilterConfig[];
   } catch (error) {
     console.error('Error fetching filter configurations:', error);
     // Retornar configuración por defecto si falla
     return [];
   }
-}; 
+};

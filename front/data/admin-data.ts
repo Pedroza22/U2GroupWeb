@@ -53,6 +53,7 @@ export interface AdminBlog {
   featured: boolean
   // Compatibilidad API
   image?: string
+  extra_images?: string[]
   summary?: string
   read_time?: string
   tags?: string[]

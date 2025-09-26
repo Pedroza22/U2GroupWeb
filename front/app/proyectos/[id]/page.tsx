@@ -105,9 +105,10 @@ export default function ProjectDetailPage() {
       try {
         const res = await axios.get(`${API_URL}/admin/projects/${numericId}/`);
         console.log('Project data:', res.data);
-        console.log('📋 Imágenes del proyecto:', res.data.images);
-        console.log('📋 Imagen principal:', res.data.image);
-        setProject(res.data as BackendProject);
+        const projectData = res.data as BackendProject;
+        console.log('📋 Imágenes del proyecto:', projectData.images);
+        console.log('📋 Imagen principal:', projectData.image);
+        setProject(projectData);
         setError("");
       } catch (err: any) {
         console.error('Error fetching project:', err);
@@ -146,7 +147,10 @@ export default function ProjectDetailPage() {
           favorited: likeStateData.favorited 
         } : { liked: false, favorited: false });
         
-        setLikeCount(likeCountData);
+        setLikeCount({ 
+          likes: likeCountData.likeCount || 0, 
+          favorites: likeCountData.favoriteCount || 0 
+        });
       } catch (error) {
         console.error('Error loading like state:', error);
       }
@@ -585,7 +589,9 @@ export default function ProjectDetailPage() {
                       <p class="text-sm opacity-75">URL: ${selectedImage.image}</p>
                     </div>
                   `;
-                  e.currentTarget.parentNode.appendChild(errorDiv);
+                  if (e.currentTarget.parentNode) {
+                    e.currentTarget.parentNode.appendChild(errorDiv);
+                  }
                 }}
               />
             </div>

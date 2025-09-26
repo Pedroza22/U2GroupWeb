@@ -42,7 +42,7 @@ export default function AdminDesignEntriesPage() {
       setError(null);
       
       const { getDesignEntries } = await import('@/lib/api-design');
-      const data = await getDesignEntries();
+      const data = await getDesignEntries() as any;
       
       if (data.success) {
         setEntries(data.data);

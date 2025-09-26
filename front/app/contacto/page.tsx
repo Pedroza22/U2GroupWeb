@@ -10,6 +10,7 @@ import Header from "@/components/layout/header"
 import Footer from "@/components/layout/footer"
 import { useLanguage } from "@/hooks/use-language"
 import { useSiteConfig } from "@/hooks/use-site-config"
+import { ContactResponse } from "@/types"
 import axios from "axios";
 
 export default function ContactoPage() {
@@ -44,8 +45,10 @@ export default function ContactoPage() {
     try {
       const response = await axios.post("/api/admin/send-contact-message/", formData);
       console.log('✅ Respuesta del servidor:', response.data);
-      
-      if (response.data.status === 'success') {
+
+      const responseData = response.data as ContactResponse;
+
+      if (responseData.status === 'success') {
         setExito(true);
         setFormData({
           firstName: "",
@@ -57,12 +60,12 @@ export default function ContactoPage() {
           comments: "",
         });
       } else {
-        setError(response.data.message || t("messageError"));
+        setError(responseData.message || t("messageError"));
       }
     } catch (err: any) {
       console.error('❌ Error enviando mensaje:', err);
       if (err.response?.data?.message) {
-        setError(err.response.data.message);
+        setError((err.response.data as ContactResponse).message || t("messageError"));
       } else {
         setError(t("messageError"));
       }

@@ -52,7 +52,7 @@ export default function AdminOrdersPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const data = await getMarketplaceOrders();
+      const data = await getMarketplaceOrders() as any;
       setOrders(data as any);
     } catch (err) {
       console.error('Error cargando órdenes:', err);

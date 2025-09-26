@@ -72,7 +72,7 @@ export default function AdminServicesPage() {
       
       // Cargar servicios desde la API usando la función helper
       const { getDesignServices } = await import('@/lib/api-design');
-      const data = await getDesignServices();
+      const data = await getDesignServices() as any;
       
       if (data.success) {
         // Aplanar los servicios de todas las categorías
@@ -102,7 +102,7 @@ export default function AdminServicesPage() {
   const loadCategories = async () => {
     try {
       const { getDesignCategories } = await import('@/lib/api-design');
-      const data = await getDesignCategories();
+      const data = await getDesignCategories() as any;
       if (data.success) {
         setCategories(data.data);
       }
@@ -129,7 +129,7 @@ export default function AdminServicesPage() {
         max_units: formData.max_units ? parseInt(formData.max_units) : undefined,
         notes: formData.notes,
         category_id: parseInt(formData.category_id)
-      });
+      }) as any;
 
       if (data.success) {
         toast.success('Servicio creado', 'El servicio se ha creado correctamente');
@@ -158,7 +158,7 @@ export default function AdminServicesPage() {
         max_units: formData.max_units ? parseInt(formData.max_units) : undefined,
         notes: formData.notes,
         category_id: parseInt(formData.category_id)
-      });
+      }) as any;
 
       if (data.success) {
         toast.success('Servicio actualizado', 'El servicio se ha actualizado correctamente');
@@ -180,7 +180,7 @@ export default function AdminServicesPage() {
         console.log('Eliminando servicio:', id);
         
         const { deleteDesignService } = await import('@/lib/api-design');
-        const data = await deleteDesignService(id);
+        const data = await deleteDesignService(id) as any;
 
         if (data.success) {
           toast.success('Servicio eliminado', 'El servicio se ha eliminado correctamente');

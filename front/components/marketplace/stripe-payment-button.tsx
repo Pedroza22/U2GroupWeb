@@ -44,7 +44,7 @@ export default function StripePaymentButton({
       toast({
         title: "Carrito vacío",
         description: "Agrega productos al carrito antes de pagar",
-        variant: "destructive"
+        open: true
       });
       return;
     }
@@ -93,7 +93,7 @@ export default function StripePaymentButton({
       toast({
         title: "Error de pago",
         description: errorMessage,
-        variant: "destructive"
+        open: true
       });
       
       onError?.(errorMessage);
@@ -107,7 +107,7 @@ export default function StripePaymentButton({
       toast({
         title: "Carrito vacío",
         description: "Agrega productos al carrito antes de pagar",
-        variant: "destructive"
+        open: true
       });
       return;
     }
@@ -117,27 +117,21 @@ export default function StripePaymentButton({
 
     try {
       // Procesar pago directo
-      const result = await processPayment({
+      const paymentIntent = await processPayment({
         amount: totalAmount,
         currency: 'usd',
         order_id: `order_${Date.now()}`,
-        customer_email: customerEmail,
-        items: cartItems.map(item => ({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity
-        }))
-      });
+        customer_email: customerEmail
+      } as any);
 
       setPaymentStatus('success');
       toast({
         title: "¡Pago exitoso!",
         description: "Tu pedido ha sido procesado correctamente",
-        variant: "default"
+        open: true
       });
 
-      onSuccess?.(result);
+      onSuccess?.(paymentIntent);
 
     } catch (error: any) {
       console.error('Error en el pago directo:', error);
@@ -147,7 +141,7 @@ export default function StripePaymentButton({
       toast({
         title: "Error de pago",
         description: errorMessage,
-        variant: "destructive"
+        open: true
       });
       
       onError?.(errorMessage);
@@ -262,4 +256,4 @@ export default function StripePaymentButton({
       </CardContent>
     </Card>
   );
-} 
+}

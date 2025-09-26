@@ -29,23 +29,23 @@ interface Order {
 }
 
 export default function OrdersPage() {
-  const { user, token, isLoading: authLoading } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const [authLoading, setAuthLoading] = useState(true);
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (authLoading) {
-      return; // Wait for auth state to be determined
-    }
-    if (!user || !token) {
+    if (!user || !isAuthenticated) {
       router.push('/login');
     } else {
       const fetchOrders = async () => {
         try {
           setLoading(true);
-          const fetchedOrders = await getOrders(token);
+          // Obtener token del localStorage
+          const storedToken = localStorage.getItem('token');
+          const fetchedOrders = await getOrders(storedToken || '');
           setOrders(fetchedOrders);
           setError(null);
         } catch (err) {
@@ -53,11 +53,12 @@ export default function OrdersPage() {
           console.error(err);
         } finally {
           setLoading(false);
+          setAuthLoading(false);
         }
       };
       fetchOrders();
     }
-  }, [user, token, router, authLoading]);
+  }, [user, isAuthenticated, router]);
 
   const renderSkeleton = () => (
     <div className="space-y-6">
@@ -109,4 +110,4 @@ export default function OrdersPage() {
       <Footer />
     </div>
   );
-} 
+}

@@ -28,7 +28,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
         password,
       });
 
-      const { token, user } = response.data;
+      const { token, user } = response.data as { token: string, user: any };
       login(token, user);
       
       if (onSuccess) {
@@ -105,4 +105,4 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
       </div>
     </div>
   );
-}; 
+};

@@ -124,9 +124,9 @@ export default function GoogleMapsWorking({
         // Convertir proyectos del backend a ProjectLocation
         const backendLocations: ProjectLocation[] = projects
           .filter(project => 
-            project.latitude && 
-            project.longitude && 
-            project.show_on_map !== false // Solo proyectos marcados para mostrar en mapa
+            (project as any).latitude && 
+            (project as any).longitude && 
+            (project as any).show_on_map !== false // Solo proyectos marcados para mostrar en mapa
           )
           .map((project: any) => ({
             id: project.id.toString(),

@@ -5,45 +5,16 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Plus, Edit, Trash2, Eye } from "lucide-react"
-import { getMarketplaceProducts, createMarketplaceProduct, updateMarketplaceProduct, deleteMarketplaceProduct, getMarketplaceProduct, getImageUrl } from "@/lib/api-marketplace"
+import { getMarketplaceProducts, createMarketplaceProduct, updateMarketplaceProduct, deleteMarketplaceProduct, getMarketplaceProduct, getImageUrl, MarketplaceProduct } from "@/lib/api-marketplace"
 import MarketplacePlanEditor from "@/components/admin/marketplace-plan-editor"
 import BackToDashboard from '@/components/admin/back-to-dashboard'
 
-interface MarketplaceProduct {
-  id?: number
-  name: string
-  description: string
-  category: string
-  style: string
-  price: number
-  area_m2: number
-  rooms: number
-  bathrooms: number
-  floors: number
-  image?: string
-  images?: string[]
-  features: string[]
-  is_featured: boolean
-  is_active: boolean
-  created_at?: string
-  updated_at?: string
-  included_items?: string[]
-  not_included_items?: string[]
-  price_pdf_m2?: number
-  price_pdf_sqft?: number
-  price_editable_m2?: number
-  price_editable_sqft?: number
-  area_sqft?: number
-  area_unit?: 'sqft' | 'm2'
-  garage_spaces?: number
-  main_level_images?: string[]
-}
 
 export default function AdminMarketplacePage() {
   const [products, setProducts] = useState<MarketplaceProduct[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [selectedProduct, setSelectedProduct] = useState<MarketplaceProduct | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<MarketplaceProduct | undefined>(undefined)
   const [showDetailView, setShowDetailView] = useState(false)
 
   // Cargar productos desde la API
@@ -52,11 +23,11 @@ export default function AdminMarketplacePage() {
       setIsLoading(true)
       setError(null)
       console.log('🔄 Cargando productos del marketplace...')
-      const data = await getMarketplaceProducts()
+      const data = await getMarketplaceProducts() as any
       console.log('✅ Productos cargados:', data.length, 'productos')
       
              // Log detallado de imágenes
-       data.forEach((product, index) => {
+       data.forEach((product: any, index: number) => {
          console.log(`📦 Producto ${index + 1}: ${product.name}`)
          console.log(`   - ID: ${product.id}`)
          console.log(`   - Imagen principal: ${product.image}`)
@@ -64,7 +35,7 @@ export default function AdminMarketplacePage() {
          console.log(`   - Imágenes adicionales: ${product.images?.length || 0}`)
          console.log(`   - Tipo imágenes adicionales: ${typeof product.images}`)
          if (product.images && product.images.length > 0) {
-           product.images.forEach((img, imgIndex) => {
+            product.images.forEach((img: any, imgIndex: number) => {
              console.log(`     * Imagen ${imgIndex + 1}: ${img}`)
            })
          }
@@ -100,7 +71,7 @@ export default function AdminMarketplacePage() {
       console.log('🔍 isUpdate:', isUpdate)
       console.log('🔍 selectedProduct?.id:', selectedProduct?.id)
       
-      if (isUpdate) {
+      if (isUpdate && selectedProduct.id) {
         console.log('🔄 Actualizando producto existente:', selectedProduct.id)
         const result = await updateMarketplaceProduct(selectedProduct.id, product)
         console.log('✅ Producto actualizado:', result)
@@ -111,7 +82,7 @@ export default function AdminMarketplacePage() {
       }
       
       setShowDetailView(false)
-      setSelectedProduct(null)
+      setSelectedProduct(undefined)
       await loadProducts()
     } catch (err) {
       console.error('❌ Error guardando producto:', err)
@@ -125,7 +96,7 @@ export default function AdminMarketplacePage() {
       try {
         await deleteMarketplaceProduct(id)
         setShowDetailView(false)
-        setSelectedProduct(null)
+        setSelectedProduct(undefined)
         await loadProducts()
       } catch (err) {
         console.error('Error eliminando producto:', err)
@@ -163,7 +134,7 @@ export default function AdminMarketplacePage() {
   // Crear nuevo producto
   const handleCreateNew = () => {
     console.log('🆕 handleCreateNew llamado')
-    setSelectedProduct(null)
+    setSelectedProduct(undefined)
     setShowDetailView(true)
   }
 
@@ -171,7 +142,7 @@ export default function AdminMarketplacePage() {
   const handleCloseDetail = () => {
     console.log('❌ handleCloseDetail llamado')
     setShowDetailView(false)
-    setSelectedProduct(null)
+    setSelectedProduct(undefined)
   }
 
   const categoryLabels = {

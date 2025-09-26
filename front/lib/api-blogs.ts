@@ -92,9 +92,9 @@ export async function toggleBlogFavorite(blogId: number): Promise<BlogLikeFavori
 
 export async function getBlogLikeFavoriteCount(blogId: number) {
   const res = await axios.get(`${API_URL}/admin/blog-interactions/?blog=${blogId}`);
-  const all = res.data;
+  const all = res.data as any[];
   return {
     likes: all.filter((item: any) => item.liked).length,
     favorites: all.filter((item: any) => item.favorited).length,
   };
-} 
+}

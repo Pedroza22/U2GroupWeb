@@ -30,9 +30,10 @@ export const login = async (credentials: LoginCredentials): Promise<AuthResponse
   try {
     const response = await axios.post(`${API_URL}/auth/login/`, credentials);
     // Store tokens in localStorage
-    localStorage.setItem('accessToken', response.data.access);
-    localStorage.setItem('refreshToken', response.data.refresh);
-    return response.data;
+    const data = response.data as AuthResponse;
+    localStorage.setItem('accessToken', data.access);
+    localStorage.setItem('refreshToken', data.refresh);
+    return data;
   } catch (error) {
     console.error('Login error:', error);
     throw error;
@@ -42,7 +43,7 @@ export const login = async (credentials: LoginCredentials): Promise<AuthResponse
 export const register = async (data: RegisterData): Promise<UserResponse> => {
   try {
     const response = await axios.post(`${API_URL}/auth/register/`, data);
-    return response.data;
+    return response.data as UserResponse;
   } catch (error) {
     console.error('Registration error:', error);
     throw error;
@@ -57,8 +58,9 @@ export const refreshToken = async (): Promise<AuthResponse> => {
     const response = await axios.post(`${API_URL}/auth/refresh/`, {
       refresh,
     });
-    localStorage.setItem('accessToken', response.data.access);
-    return response.data;
+    const data = response.data as AuthResponse;
+    localStorage.setItem('accessToken', data.access);
+    return data;
   } catch (error) {
     console.error('Token refresh error:', error);
     throw error;
@@ -68,4 +70,4 @@ export const refreshToken = async (): Promise<AuthResponse> => {
 export const logout = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
-}; 
+};

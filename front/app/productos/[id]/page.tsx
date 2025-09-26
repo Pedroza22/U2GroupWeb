@@ -11,9 +11,9 @@ import Image from 'next/image';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default function ProductDetailPage({ params }: Props) {
@@ -21,15 +21,28 @@ export default function ProductDetailPage({ params }: Props) {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [productId, setProductId] = useState<string | null>(null);
 
   useEffect(() => {
-    loadProduct();
-  }, [params.id]);
+    const loadParams = async () => {
+      const resolvedParams = await params;
+      setProductId(resolvedParams.id);
+    };
+    loadParams();
+  }, [params]);
+
+  useEffect(() => {
+    if (productId) {
+      loadProduct();
+    }
+  }, [productId]);
 
   const loadProduct = async () => {
+    if (!productId) return;
+    
     try {
       setLoading(true);
-      const data = await getProduct(parseInt(params.id));
+      const data = await getProduct(parseInt(productId));
       setProduct(data);
     } catch (error) {
       console.error('Error loading product:', error);

@@ -46,7 +46,7 @@ export default function SiteConfiguration() {
       
       setConfig(prev => ({
         ...prev,
-        ...configData
+        ...(configData as object)
       }))
     } catch (err: any) {
       console.error('Error cargando configuración:', err)
@@ -77,11 +77,11 @@ export default function SiteConfiguration() {
     try {
       const response = await axios.put("/api/design/site-configuration/", config)
       
-      if (response.data.status === 'success') {
+      if ((response.data as any).status === 'success') {
         setSuccessMessage('Configuración guardada exitosamente')
         setTimeout(() => setSuccessMessage(null), 3000)
       } else {
-        setError(response.data.message || 'Error al guardar la configuración')
+        setError((response.data as any).message || 'Error al guardar la configuración')
       }
     } catch (err: any) {
       console.error('Error guardando configuración:', err)

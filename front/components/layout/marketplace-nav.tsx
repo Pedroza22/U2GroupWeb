@@ -78,7 +78,7 @@ export default function MarketplaceNav() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>Hola, {user.first_name || user.username}</DropdownMenuLabel>
+                  <DropdownMenuLabel>Hola, {(user as any).first_name || (user as any).username}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => router.push('/profile/orders')}>
                     <LayoutGrid className="mr-2 h-4 w-4" />
@@ -143,4 +143,4 @@ export default function MarketplaceNav() {
       </div>
     </nav>
   );
-} 
+}

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/use-auth";
 import { CartProvider } from "@/context/cart-context";
 import { LanguageProvider } from "@/hooks/use-language";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CookieBanner } from "@/app/components/cookie-banner";
+import { SessionExpiredModal } from "@/components/session-expired-modal";
 
-const inter = Inter({ subsets: ["latin"] });
+// Force dynamic rendering globally
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "U2Group - Marketplace",
@@ -29,6 +30,7 @@ export default function RootLayout({
               <CartProvider>
                 {children}
                 <CookieBanner />
+                <SessionExpiredModal />
               </CartProvider>
             </AuthProvider>
           </LanguageProvider>

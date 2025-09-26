@@ -43,7 +43,7 @@ export default function AdminCategoriesPage() {
       setError(null);
       
       const { getDesignCategories } = await import('@/lib/api-design');
-      const data = await getDesignCategories();
+      const data = await getDesignCategories() as any;
       
       if (data.success) {
         setCategories(data.data);
@@ -76,7 +76,7 @@ export default function AdminCategoriesPage() {
       const data = await createDesignCategory({
         name: formData.name.trim(),
         emoji: formData.emoji.trim()
-      });
+      }) as any;
 
       if (data.success) {
         toast.success('Categoría creada', 'La categoría se ha creado correctamente');
@@ -105,7 +105,7 @@ export default function AdminCategoriesPage() {
       const data = await updateDesignCategory(id, {
         name: formData.name.trim(),
         emoji: formData.emoji.trim()
-      });
+      }) as any;
 
       if (data.success) {
         toast.success('Categoría actualizada', 'La categoría se ha actualizado correctamente');
@@ -127,7 +127,7 @@ export default function AdminCategoriesPage() {
         console.log('Eliminando categoría:', id);
         
         const { deleteDesignCategory } = await import('@/lib/api-design');
-        const data = await deleteDesignCategory(id);
+        const data = await deleteDesignCategory(id) as any;
 
         if (data.success) {
           toast.success('Categoría eliminada', 'La categoría se ha eliminado correctamente');
