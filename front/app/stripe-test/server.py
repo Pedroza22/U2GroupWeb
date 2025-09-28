@@ -11,7 +11,7 @@ import os
 import stripe
 # This is your test secret API key.
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY', 'sk_test_placeholder')
-stripe.api_version = '2025-07-30.basil'
+stripe.api_version = '2020-08-27'
 
 app = Flask(__name__,
             static_url_path='',
