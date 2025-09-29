@@ -24,9 +24,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
   console.error('STRIPE_SECRET_KEY no está configurada');
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-07-30.basil',
-});
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 
 export async function POST(request: NextRequest) {
   try {
