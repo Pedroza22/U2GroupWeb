@@ -30,7 +30,6 @@ const nextConfig = {
     ],
   },
   // Disable static optimization globally
-  output: 'standalone',
   experimental: {
     forceSwcTransforms: true,
   },
