@@ -561,8 +561,10 @@ def create_payment_intent(request):
     """
     try:
         # Validar configuración de Stripe
-        is_valid, message = validate_stripe_config()
+        validation_result = validate_stripe_config()
+        is_valid = validation_result.get('valid', False)
         if not is_valid:
+            message = validation_result.get('error', 'Stripe configuration error')
             return Response({
                 'error': message
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -611,8 +613,10 @@ def confirm_payment(request):
     """
     try:
         # Validar configuración de Stripe
-        is_valid, message = validate_stripe_config()
+        validation_result = validate_stripe_config()
+        is_valid = validation_result.get('valid', False)
         if not is_valid:
+            message = validation_result.get('error', 'Stripe configuration error')
             return Response({
                 'error': message
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -726,7 +730,10 @@ def stripe_config(request):
     Endpoint para obtener la configuración de Stripe del frontend
     """
     try:
-        is_valid, message = validate_stripe_config()
+        validation_result = validate_stripe_config()
+        is_valid = validation_result.get('valid', False)
+        message = validation_result.get('error', 'Stripe configured successfully') if not is_valid else 'Stripe configured successfully'
+        
         return Response({
             'stripe_configured': is_valid,
             'publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
@@ -746,8 +753,10 @@ def create_payment_method_view(request):
     """
     try:
         # Validar configuración de Stripe
-        is_valid, message = validate_stripe_config()
+        validation_result = validate_stripe_config()
+        is_valid = validation_result.get('valid', False)
         if not is_valid:
+            message = validation_result.get('error', 'Stripe configuration error')
             return Response({
                 'error': message
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -785,8 +794,10 @@ def create_customer_view(request):
     """
     try:
         # Validar configuración de Stripe
-        is_valid, message = validate_stripe_config()
+        validation_result = validate_stripe_config()
+        is_valid = validation_result.get('valid', False)
         if not is_valid:
+            message = validation_result.get('error', 'Stripe configuration error')
             return Response({
                 'error': message
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -829,8 +840,10 @@ def create_checkout_session_view(request):
     """
     try:
         # Validar configuración de Stripe
-        is_valid, message = validate_stripe_config()
+        validation_result = validate_stripe_config()
+        is_valid = validation_result.get('valid', False)
         if not is_valid:
+            message = validation_result.get('error', 'Stripe configuration error')
             return Response({
                 'error': message
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -881,8 +894,10 @@ def refund_payment_view(request):
     """
     try:
         # Validar configuración de Stripe
-        is_valid, message = validate_stripe_config()
+        validation_result = validate_stripe_config()
+        is_valid = validation_result.get('valid', False)
         if not is_valid:
+            message = validation_result.get('error', 'Stripe configuration error')
             return Response({
                 'error': message
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
