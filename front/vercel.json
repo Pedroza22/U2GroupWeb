@@ -1,6 +1,6 @@
 {
-  "installCommand": "npm install --save-dev typescript@5.9.2 @types/react@19.1.15 @types/node@22.18.7 @types/react-dom@19.1.9 --legacy-peer-deps && npm install --legacy-peer-deps && npm list typescript || exit 1",
-  "buildCommand": "npm list typescript && npm run build",
+  "installCommand": "npm install typescript@5.3.3 @types/react@18.2.48 @types/node@20.11.5 @types/react-dom@18.2.18 --save-dev --legacy-peer-deps && npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
   "framework": "nextjs",
   "regions": ["iad1"],
   "functions": {
