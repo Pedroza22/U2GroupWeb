@@ -1,0 +1,11 @@
+Django==5.2
+djangorestframework==3.15.2
+djangorestframework-simplejwt==5.3.0
+django-cors-headers==4.4.0
+drf-spectacular==0.27.2
+gunicorn==23.0.0
+whitenoise==6.8.2
+Pillow==10.4.0
+python-decouple==3.8
+psycopg2-binary==2.9.9
+stripe==10.12.0
