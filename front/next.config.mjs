@@ -31,9 +31,8 @@ const nextConfig = {
   // Configuración experimental y TypeScript
   experimental: {
     forceSwcTransforms: true,
-    typedRoutes: true,
-    swcMinify: true,
   },
+  typedRoutes: true,
   typescript: {
     ignoreBuildErrors: false,
     tsconfigPath: './tsconfig.json'
