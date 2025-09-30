@@ -85,7 +85,7 @@ export default function LoginRegisterPage() {
       // Obtener la URL de redirección de los parámetros de la URL
       const params = new URLSearchParams(window.location.search);
       const redirectUrl = params.get("redirect") || "/marketplace";
-      router.push(redirectUrl);
+      router.push(redirectUrl as any);
     } catch (err: any) {
       console.log("🔍 Error en login catch:", err);
       setLoginError(err.message);
@@ -159,7 +159,7 @@ export default function LoginRegisterPage() {
       // Obtener la URL de redirección de los parámetros de la URL
       const params = new URLSearchParams(window.location.search);
       const redirectUrl = params.get("redirect") || "/marketplace";
-      router.push(redirectUrl);
+      router.push(redirectUrl as any);
     } catch (err: any) {
       console.log("🔍 Error en catch:", err);
       setRegisterError(err.message);
@@ -353,4 +353,4 @@ export default function LoginRegisterPage() {
       </div>
     </div>
   );
-} 
+}

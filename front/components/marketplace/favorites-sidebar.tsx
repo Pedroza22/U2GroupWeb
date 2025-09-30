@@ -134,7 +134,7 @@ export default function FavoritesSidebar({ isOpen, onClose }: FavoritesSidebarPr
                   className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:shadow-md transition-shadow"
                 >
                   <div className="flex gap-4">
-                    <Link href={`/plan/${item.id}`} className="flex-shrink-0">
+                    <Link href={`/plan/${item.id}` as any} className="flex-shrink-0">
                       <div className="w-24 h-20 bg-gray-200 rounded-lg overflow-hidden">
                         <Image
                           src={item.image || "/placeholder.svg"}
@@ -148,7 +148,7 @@ export default function FavoritesSidebar({ isOpen, onClose }: FavoritesSidebarPr
 
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start mb-2">
-                        <Link href={`/plan/${item.id}`}>
+                        <Link href={`/plan/${item.id}` as any}>
                           <h3 className="font-semibold text-gray-900 hover:text-[#0D00FF] transition-colors">
                             Plan {item.name}
                           </h3>

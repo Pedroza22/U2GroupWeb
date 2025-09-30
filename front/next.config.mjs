@@ -28,9 +28,15 @@ const nextConfig = {
       }
     ],
   },
-  // Disable static optimization globally
+  // Configuración experimental y TypeScript
   experimental: {
     forceSwcTransforms: true,
+    typedRoutes: true,
+    swcMinify: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+    tsconfigPath: './tsconfig.json'
   },
   reactStrictMode: true,
   webpack: (config) => {

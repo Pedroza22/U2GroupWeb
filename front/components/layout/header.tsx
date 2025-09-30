@@ -103,7 +103,7 @@ export default function Header({
             {navItems.map((item) => (
               <Link
                 key={item.id}
-                href={item.href}
+                href={item.href as any}
                 className={`text-gray-700 hover:text-blue-600 transition-colors neutra-font ${
                   currentPage === item.id ? "text-blue-600 font-medium" : ""
                 }`}
@@ -199,11 +199,8 @@ export default function Header({
               {navItems.map((item) => (
                 <Link
                   key={item.id}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors neutra-font ${
-                    currentPage === item.id ? "text-blue-600 font-medium bg-blue-50" : ""
-                  }`}
+                  href={item.href as any}
+                  className="block px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors"
                 >
                   {item.label}
                 </Link>

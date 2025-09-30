@@ -25,7 +25,7 @@ export default function AuthGuard({ children, fallback }: AuthGuardProps) {
         if (!isAuthenticated) {
           console.log('❌ No autenticado, redirigiendo a login');
           // Si no está autenticado, redirigir a login principal
-          router.push('/login?redirect=' + encodeURIComponent(window.location.pathname))
+          router.push(('/login?redirect=' + encodeURIComponent(window.location.pathname)) as any)
           return
         }
 
@@ -55,4 +55,4 @@ export default function AuthGuard({ children, fallback }: AuthGuardProps) {
   }
 
   return <>{children}</>
-} 
+}

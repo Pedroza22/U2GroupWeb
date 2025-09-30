@@ -21,7 +21,7 @@ export default function MarketplaceHeader() {
   const { cartCount } = useCart()
 
   const handleLoginClick = () => {
-    router.push("/login?redirect=" + encodeURIComponent(window.location.pathname))
+    router.push(("/login?redirect=" + encodeURIComponent(window.location.pathname)) as any)
   }
 
   const handleLogoutClick = () => {
@@ -79,7 +79,7 @@ export default function MarketplaceHeader() {
             {navItems.map((item) => (
               <Link
                 key={item.id}
-                href={item.href}
+                href={item.href as any}
                 className="text-gray-700 hover:text-blue-600 transition-colors neutra-font"
               >
                 {item.label}
@@ -119,7 +119,7 @@ export default function MarketplaceHeader() {
                       </div>
                       <div className="py-2">
                         <Link
-                          href="/marketplace/settings"
+                          href={"/marketplace/settings" as any}
                           className="block px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
                         >
                           {t("ajustes")}
@@ -137,7 +137,7 @@ export default function MarketplaceHeader() {
 
                 {/* Favorites Button */}
                 <Link
-                  href="/marketplace/favorites"
+                  href={"/marketplace/favorites" as any}
                   className="p-2 hover:bg-gray-100/80 rounded-xl transition-all duration-200 relative"
                 >
                   <Heart className="w-5 h-5 text-gray-900" />
@@ -150,7 +150,7 @@ export default function MarketplaceHeader() {
 
                 {/* Cart Button */}
                 <Link
-                  href="/marketplace/cart"
+                  href={"/marketplace/cart" as any}
                   className="p-2 hover:bg-gray-100/80 rounded-xl transition-all duration-200 relative"
                 >
                   <ShoppingCart className="w-5 h-5 text-gray-900" />
@@ -187,7 +187,7 @@ export default function MarketplaceHeader() {
               {navItems.map((item) => (
                 <Link
                   key={item.id}
-                  href={item.href}
+                  href={item.href as any}
                   onClick={() => setIsMenuOpen(false)}
                   className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors neutra-font"
                 >

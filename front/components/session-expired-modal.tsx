@@ -39,7 +39,7 @@ export function SessionExpiredModal() {
 
   const handleLogin = () => {
     setIsOpen(false);
-    router.push('/marketplace/login');
+    router.push('/marketplace/login' as any);
   };
 
   const handleClose = () => {

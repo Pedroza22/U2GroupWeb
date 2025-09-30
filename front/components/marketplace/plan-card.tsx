@@ -35,7 +35,7 @@ export default function PlanCard({ plan, unit }: PlanCardProps) {
   const displayUnitLabel = unit === "m2" ? "m²" : "Sq. Ft."
 
   return (
-    <Link href={`/plan/${plan.id}`}>
+    <Link href={`/plan/${plan.id}` as any}>
       <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 border border-white/20 hover:border-white/30 cursor-pointer">
         <div className="relative">
           <Image

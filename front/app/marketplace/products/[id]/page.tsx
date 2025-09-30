@@ -58,7 +58,7 @@ export default function ProductDetailPage() {
     if (isAuthenticated && loginAction === 'view-plans') {
       // Si el usuario está autenticado y la acción era ver planos, redirigir automáticamente
       console.log('Usuario autenticado, redirigiendo a planos...')
-      router.push(`/marketplace/products/${productId}/plans`)
+      router.push(`/marketplace/products/${productId}/plans` as any)
     }
   }, [isAuthenticated, loginAction, productId, router])
 
@@ -68,7 +68,7 @@ export default function ProductDetailPage() {
     const redirectParam = params.get('redirect')
     if (redirectParam && isAuthenticated) {
       console.log('Redirección detectada:', redirectParam)
-      router.replace(redirectParam)
+      router.replace(redirectParam as any)
     }
   }, [isAuthenticated, router])
 
@@ -81,7 +81,7 @@ export default function ProductDetailPage() {
     } else {
       console.log('Usuario autenticado, redirigiendo a planos')
       // Redirigir a la página de planos
-      router.push(`/marketplace/products/${productId}/plans`)
+      router.push(`/marketplace/products/${productId}/plans` as any)
     }
   }
 
@@ -113,7 +113,7 @@ export default function ProductDetailPage() {
     
     if (loginAction === 'view-plans') {
       // Redirigir directamente a la página de planos
-      router.push(`/marketplace/products/${productId}/plans`)
+      router.push(`/marketplace/products/${productId}/plans` as any)
     } else if (loginAction === 'favorites') {
       handleAddToFavorites()
     }

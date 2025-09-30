@@ -34,7 +34,7 @@ export default function Header({
 
   const handleUserClick = () => {
     if (!user) {
-      router.push('/login');
+      router.push('/login' as any);
     } else {
       setIsUserDropdownOpen((open) => !open);
     }
@@ -43,13 +43,13 @@ export default function Header({
   const handleLogout = () => {
     logout();
     setIsUserDropdownOpen(false);
-    router.push('/');
+    router.push('/' as any);
   };
 
   const userMenuItems = [
-    { icon: User, label: t("Mi perfil"), onClick: () => { setIsUserDropdownOpen(false); router.push('/profile'); } },
-    { icon: Package, label: t("Mis pedidos"), onClick: () => { setIsUserDropdownOpen(false); router.push('/profile/orders'); } },
-    { icon: Settings, label: t("Configuración"), onClick: () => { setIsUserDropdownOpen(false); router.push('/profile/settings'); } },
+    { icon: User, label: t("Mi perfil"), onClick: () => { setIsUserDropdownOpen(false); router.push('/profile' as any); } },
+    { icon: Package, label: t("Mis pedidos"), onClick: () => { setIsUserDropdownOpen(false); router.push('/profile/orders' as any); } },
+    { icon: Settings, label: t("Configuración"), onClick: () => { setIsUserDropdownOpen(false); router.push('/profile/settings' as any); } },
     { icon: LogOut, label: t("Cerrar sesión"), onClick: handleLogout },
   ];
 
