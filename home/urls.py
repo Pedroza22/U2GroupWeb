@@ -6,7 +6,7 @@ from .views import (
     CalculatorEntryViewSet, ProjectViewSet, ProductViewSet, 
     ProductImageViewSet, OrderViewSet, register_user, login_user,
     test_stripe_connection_view, test_payment_method_view, validate_discount_view,
-    PublicMarketplaceProductViewSet
+    stripe_config, PublicMarketplaceProductViewSet
 )
 from admin_api.marketplace_views import ProductFavoriteViewSet
 
@@ -28,4 +28,5 @@ urlpatterns = [
     path('stripe/test-connection/', test_stripe_connection_view, name='test_stripe_connection'),
     path('stripe/test-payment-method/', test_payment_method_view, name='test_payment_method'),
     path('stripe/validate-discount/', validate_discount_view, name='validate_discount'),
+    path('stripe/config/', stripe_config, name='stripe_config'),
 ]
