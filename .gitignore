@@ -201,7 +201,6 @@ staticfiles/
 
 # Stripe
 stripe_test.py
-stripe_config.py
 
 # Test files
 test_*.py
